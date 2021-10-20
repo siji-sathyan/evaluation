@@ -40,7 +40,7 @@ pipeline {
                 script {        
                     docker.withTool('docker') {
                         docker.withRegistry('https://artifactory.dagility.com', 'siji-registry'){
-                            docker.build(registry + "assessment:latest").push()
+                            docker.build(registry + "evaluation:latest").push()
                         }
                     }
                 } 
@@ -49,7 +49,7 @@ pipeline {
         stage('deploy'){
             steps{
                 sshagent(['deploy-user']) {
-                    sh "scp -o StrictHostKeyChecking=no /home/jenkins/agent/workspace/siji-training/mavenwebapp/target/evaluation.war ec2-user@3.238.185.140:/opt/apache-tomcat-8.5.71/webapps"      
+                    sh "scp -o StrictHostKeyChecking=no /home/jenkins/agent/workspace/siji-training/Maven-Assessment/target/evaluation.war ec2-user@3.238.185.140:/opt/apache-tomcat-8.5.71/webapps"      
             }
           }
         }

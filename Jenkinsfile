@@ -45,6 +45,20 @@ pipeline {
                     }
                 } 
             }
-         }     
+         } 
+        stage('package') {
+            steps {
+                sh 'mvn package'
+                archiveArtifacts artifacts: 'target/*.war', followSymlinks: false
+                
+            }
+        }
+        stage('deploy'){
+            steps{
+                sshagent(['deploy-user']) {
+                    sh "scp -o StrictHostKeyChecking=no /home/jenkins/agent/workspace/siji-training/mavenwebapp/target/evaluation.war ec2-user@3.238.185.140:/opt/apache-tomcat-8.5.71/webapps"      
+            }
+          }
+        }
     }
 }

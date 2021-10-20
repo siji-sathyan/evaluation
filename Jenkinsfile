@@ -6,7 +6,7 @@ pipeline {
     }
     environment {
         CI = 'true'
-        registry = 'docker-services-training/siji-samplemaven/'
+        registry = 'docker-services-training/siji-evaluation/'
         }
     stages {
         stage('git clone') {

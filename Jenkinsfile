@@ -46,13 +46,6 @@ pipeline {
                 } 
             }
          } 
-        stage('package') {
-            steps {
-                sh 'mvn package'
-                archiveArtifacts artifacts: 'target/*.war', followSymlinks: false
-                
-            }
-        }
         stage('deploy'){
             steps{
                 sshagent(['deploy-user']) {

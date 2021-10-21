@@ -5,7 +5,6 @@ pipeline {
         maven 'maven'
     }
     environment {
-        CI = 'true'
         registry = 'docker-services-training/siji-evaluation/'
         }
     stages {
@@ -32,10 +31,10 @@ pipeline {
         stage('package') {
             steps {
                 sh 'mvn package'
-                archiveArtifacts artifacts: 'target**/*.war', followSymlinks: false      
+                archiveArtifacts artifacts: 'target/*.war', followSymlinks: false      
             }
         }      
-        stage('Build the image') { 
+        stage('Push to Artifactory') { 
             steps { 
                 script {        
                     docker.withTool('docker') {
